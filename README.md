@@ -1,10 +1,11 @@
 granne\*
---------
---------
+----
 
-**granne** (**g**raph-based **r**etrieval of **a**pproximate **n**earest **ne**ighbors) is a Rust library for ANN-search based on [Hierarchical Navigable Small World (HNSW) graphs](https://arxiv.org/abs/1603.09320) and is used in [Cliqz Search](https://beta.cliqz.com). For some background and motivation behind granne, please read [Indexing Billions of Text Vectors](https://0x65.dev/blog/2019-12-07/indexing-billions-of-text-vectors.html).
+[![Crates.io](https://img.shields.io/crates/v/granne.svg)](https://crates.io/crates/granne)
+[![documentation](https://docs.rs/granne/badge.svg)](https://docs.rs/granne)
+[![license](http://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-**Note: granne is still under active development. A more stable release (with documentation) is coming soon.**
+**granne** (**g**raph-based **r**etrieval of **a**pproximate **n**earest **ne**ighbors) is a Rust library for approximate nearest neighbor search based on [Hierarchical Navigable Small World (HNSW) graphs](https://arxiv.org/abs/1603.09320) and is used in [Cliqz Search](https://beta.cliqz.com). It focuses on reducing memory usage in order to allow [indexing billions of vectors](https://0x65.dev/blog/2019-12-07/indexing-billions-of-text-vectors.html).
 
 ## Features
 - Memory-mapped
@@ -17,11 +18,11 @@ granne\*
 
 #### Requirements
 
-`granne` is dependent on `BLAS` (https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms) for some computations. This applies both to the rust and python versions. On Debian/Ubuntu both `libblas-dev` and `libopenblas-dev` should work, with the latter being significantly faster.
-
-On Mac OS there seems to be some issue ([maybe
-this one](https://grokbase.com/t/r/r-sig-mac/106pkkknqd/problems-with-single-precision-routines-in-64-bit-veclib-blas))
-with the default `BLAS` library. A workaround is to install e.g. `openblas` and link to that instead.
+You will need to have `Rust` installed. This can be done by calling:
+```
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+Or by visiting https://rustup.rs/ and following the instructions there.
 
 #### Rust
 
@@ -38,28 +39,20 @@ cargo +nightly bench
 
 #### Python
 
-To quickly install:
+See [Python Bindings](py).
 
-```
-pip install setuptools_rust
-pip install .
-```
+#### Optional Requirements
 
-To build python wheels for python 2.7, 3.4, 3.5 and 3.6 (requires docker).
+granne can use `BLAS` (https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms) to improve speed of some computations. On Debian/Ubuntu both `libblas-dev` and `libopenblas-dev` should work, with the latter being significantly faster.
+
+`BLAS` can be enabled by passing the `blas` feature during compilation, e.g.
 ```
-docker build -t granne_manylinux docker/manylinux/
-docker run -v $(pwd):/granne/ granne_manylinux /opt/build_wheels.sh
-```
-The output is written to `wheels/` and can be installed by
-```
-pip install granne --no-index -f wheels/
+cargo build --release --features "blas"
 ```
 
+On Mac OS there seems to be some issue ([maybe
+this one](https://grokbase.com/t/r/r-sig-mac/106pkkknqd/problems-with-single-precision-routines-in-64-bit-veclib-blas))
+with the default `BLAS` library. A workaround is to install e.g. `openblas` and link to that instead.
 
-## Index Creation
-...
-
-## Search
-...
-
+----
 \***granne** is Swedish and means **neighbor**

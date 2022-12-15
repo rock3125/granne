@@ -1,33 +1,51 @@
 [package]
 name = "granne"
-version = "0.4.0"
-authors = ["Erik Larsson <erik.ie.larsson@gmail.com>"]
-license = "MIT"
-links = "blas"
-build = "build.rs"
+version = "0.5.2"
 edition = "2018"
+authors = ["Erik Larsson <erik@cliqz.com>"]
+description = "Graph-based Retrieval of Approximate Nearest Neighbors"
+repository = "https://github.com/granne/granne"
+documentation = "https://docs.rs/granne/"
+license = "MIT"
+readme = "README.md"
+links = "blas"
+exclude = [
+    "benches/",
+    "docker",
+    "py/",
+    "examples/",
+    "setup.py",
+    "pyproject.toml",
+    "CHANGELOG.md",
+]
+
+[profile.release]
+debug = true
+
+[features]
+default = []
+singlethreaded = []
+rw_granne = []
 
 [dependencies]
-blas = "0.20.0"
-byteorder = "1.2.1"
-bytes = "0.4"
-clap = "2.28.0"
-crossbeam = "0.3.2"
-flate2 = "0.2.19"
+byteorder = "1.3"
+flate2 = "1.0"
+fxhash = "0.2"
 madvise = "0.1.0"
-memmap = "0.6.2"
-ordered-float = "0.5.0"
+memmap = "0.7"
+ordered-float = "1.0"
 owning_ref = "0.4"
-parking_lot = "0.9"
+parking_lot = "0.10"
 pbr = "1.0.0"
-rand = "0.3"
-rayon = "1.2"
-revord = "0.0.2"
-serde = { version = "1.0", features = ["derive"] }
-serde_json = "1.0.2"
-slice_vector = {path = "slice_vector/"}
-time = "0.1"
-toml = "0.4"
+rayon = "1.3"
+serde_json = "1.0"
+stream-vbyte = "0.3.2"
+rand = "0.7"
+blas = {version = "0.20.0", optional = true}
 
 [dev-dependencies]
-tempfile = "3.0.5"
+tempfile = "3.1"
+rand = "0.7"
+
+[workspace]
+members = [".", "py"]
